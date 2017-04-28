@@ -98,3 +98,68 @@ public void testForwardChain()
     System.out.println();
 }
 ```
+
+## Search for answer to a question using backward chaining
+
+```java
+public void testBackwardChain()
+{
+    RuleInferenceEngine rie=getInferenceEngine();
+    rie.addFact(new EqualsClause("num_wheels", "4"));
+    rie.addFact(new EqualsClause("motor", "yes"));
+    rie.addFact(new EqualsClause("num_doors", "3"));
+    rie.addFact(new EqualsClause("size", "medium"));
+
+    System.out.println("Infer: vehicle");
+
+    Vector<Clause> unproved_conditions= new Vector<>();
+
+    Clause conclusion=rie.infer("vehicle", unproved_conditions);
+
+    System.out.println("Conclusion: "+conclusion);
+}
+```
+
+## Ask more questions to help search for answer to a question when no sufficient facts are present
+
+```java
+public void demoBackwardChainWithNullMemory()
+{
+    RuleInferenceEngine rie=getInferenceEngine();
+
+    System.out.println("Infer with All Facts Cleared:");
+    rie.clearFacts();
+
+    Vector<Clause> unproved_conditions= new Vector<>();
+
+    Clause conclusion=null;
+    while(conclusion==null)
+    {
+        conclusion=rie.infer("vehicle", unproved_conditions);
+        if(conclusion==null)
+        {
+            if(unproved_conditions.size()==0)
+            {
+                break;
+            }
+            Clause c=unproved_conditions.get(0);
+            System.out.println("ask: "+c+"?");
+            unproved_conditions.clear();
+            String value=showInputDialog("What is "+c.getVariable()+"?");
+            rie.addFact(new EqualsClause(c.getVariable(), value));
+        }
+    }
+
+    System.out.println("Conclusion: "+conclusion);
+    System.out.println("Memory: ");
+    System.out.println(rie.getFacts());
+}
+
+private String showInputDialog(String question) {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print(question + " ");
+    return scanner.next();
+}
+```
+
+
