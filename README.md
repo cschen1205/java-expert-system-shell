@@ -1,5 +1,8 @@
-# java-expert-system-shell
-Expert System Shell implemented in Java
+# Expert System Shell (Java)
+
+A simple and user-friendly expert system shell implemented in Java
+
+[![Build Status](https://travis-ci.org/cschen1205/java-expert-system-shell.svg?branch=master)](https://travis-ci.org/cschen1205/java-expert-system-shell) [![Coverage Status](https://coveralls.io/repos/github/cschen1205/java-expert-system-shell/badge.svg?branch=master)](https://coveralls.io/github/cschen1205/java-expert-system-shell?branch=master)
 
 # Usage
 
