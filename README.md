@@ -1,6 +1,6 @@
 # Expert System Shell (Java)
 
-A simple and user-friendly expert system shell implemented in Java
+A simple and user-friendly expert system shell implemented in Java. The rule engine also support rule files written in Javascript
 
 [![Build Status](https://travis-ci.org/cschen1205/java-expert-system-shell.svg?branch=master)](https://travis-ci.org/cschen1205/java-expert-system-shell) [![Coverage Status](https://coveralls.io/repos/github/cschen1205/java-expert-system-shell/badge.svg?branch=master)](https://coveralls.io/github/cschen1205/java-expert-system-shell?branch=master)
 
@@ -123,7 +123,7 @@ public void testBackwardChain()
 }
 ```
 
-## Ask more questions to help search for answer to a question when no sufficient facts are present
+## Ask more questions when no sufficient facts are present
 
 ```java
 public void demoBackwardChainWithNullMemory()
@@ -165,4 +165,99 @@ private String showInputDialog(String question) {
 }
 ```
 
+## Running rule engine using rules defined in a Javascript
 
+Below is an example of a rules file written in Javascript (vehicle-rules.js)
+
+
+```javascript
+expert.newRule("Bicycle")
+    .ifEquals("vehicleType", "cycle")
+    .andEquals("num_wheels", 2)
+    .andEquals("motor", "no")
+    .thenEquals("vehicle", "Bicycle")
+    .build();
+
+expert.newRule("Tricycle")
+    .ifEquals("vehicleType", "cycle")
+    .andEquals("num_wheels", 3)
+    .andEquals("motor", "no")
+    .thenEquals("vehicle", "Tricycle")
+    .build();
+
+expert.newRule("Motorcycle")
+    .ifEquals("vehicleType", "cycle")
+    .andEquals("num_wheels", 2)
+    .andEquals("motor", "yes")
+    .thenEquals("vehicle", "Motorcycle")
+    .build();
+
+expert.newRule("SportsCar")
+    .ifEquals("vehicleType", "automobile")
+    .andEquals("size", "medium")
+    .andEquals("num_doors", 2)
+    .thenEquals("vehicle", "Sports_Car")
+    .build();
+
+expert.newRule("Sedan")
+    .ifEquals("vehicleType", "automobile")
+    .andEquals("size", "medium")
+    .andEquals("num_doors", 4)
+    .thenEquals("vehicle", "Sedan")
+    .build();
+
+expert.newRule("MiniVan")
+    .ifEquals("vehicleType", "automobile")
+    .andEquals("size", "medium")
+    .andEquals("num_doors", 3)
+    .thenEquals("vehicle", "MiniVan")
+    .build();
+
+expert.newRule("SUV")
+    .ifEquals("vehicleType", "automobile")
+    .andEquals("size", "large")
+    .andEquals("num_doors", 4)
+    .thenEquals("vehicle", "SUV")
+    .build();
+
+expert.newRule("Cycle")
+    .ifLess("num_wheels", 4)
+    .thenEquals("vehicleType", "cycle")
+    .build();
+
+expert.newRule("Automobile")
+    .ifEquals("num_wheels", 4)
+    .andEquals("motor", "yes")
+    .thenEquals("vehicleType", "automobile")
+    .build();
+```
+
+The rule engine can then load these rules into its shell and run:
+
+```java
+JSRuleInferenceEngine engine = new JSRuleInferenceEngine();
+String jsContent = readToEnd("/vehicle-rules.js");
+engine.loadString(jsContent);
+engine.buildRules();
+
+engine.clearFacts();
+
+engine.addFact("num_wheels", "4");
+engine.addFact("motor", "yes");
+engine.addFact("num_doors", "3");
+engine.addFact("size", "medium");
+
+
+
+System.out.println("before inference");
+System.out.println(engine.getKnowledgeBase());
+System.out.println();
+
+
+
+engine.infer(); //forward chain
+
+System.out.println("after inference");
+System.out.println(engine.getKnowledgeBase());
+System.out.println();
+```
