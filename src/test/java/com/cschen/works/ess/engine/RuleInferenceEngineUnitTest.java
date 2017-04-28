@@ -1,4 +1,4 @@
-package com.cschen.works.ess;
+package com.cschen.works.ess.engine;
 
 import org.testng.annotations.Test;
 
@@ -16,10 +16,10 @@ public class RuleInferenceEngineUnitTest {
     public void testBackwardChain()
     {
         RuleInferenceEngine rie=getInferenceEngine();
-        rie.addFact(new IsClause("num_wheels", "4"));
-        rie.addFact(new IsClause("motor", "yes"));
-        rie.addFact(new IsClause("num_doors", "3"));
-        rie.addFact(new IsClause("size", "medium"));
+        rie.addFact(new EqualsClause("num_wheels", "4"));
+        rie.addFact(new EqualsClause("motor", "yes"));
+        rie.addFact(new EqualsClause("num_doors", "3"));
+        rie.addFact(new EqualsClause("size", "medium"));
 
         System.out.println("Infer: vehicle");
 
@@ -59,7 +59,7 @@ public class RuleInferenceEngineUnitTest {
                 System.out.println("ask: "+c+"?");
                 unproved_conditions.clear();
                 String value=showInputDialog("What is "+c.getVariable()+"?");
-                rie.addFact(new IsClause(c.getVariable(), value));
+                rie.addFact(new EqualsClause(c.getVariable(), value));
             }
         }
 
@@ -72,10 +72,10 @@ public class RuleInferenceEngineUnitTest {
     public void testForwardChain()
     {
         RuleInferenceEngine rie=getInferenceEngine();
-        rie.addFact(new IsClause("num_wheels", "4"));
-        rie.addFact(new IsClause("motor", "yes"));
-        rie.addFact(new IsClause("num_doors", "3"));
-        rie.addFact(new IsClause("size", "medium"));
+        rie.addFact(new EqualsClause("num_wheels", "4"));
+        rie.addFact(new EqualsClause("motor", "yes"));
+        rie.addFact(new EqualsClause("num_doors", "3"));
+        rie.addFact(new EqualsClause("size", "medium"));
 
         System.out.println("before inference");
         System.out.println(rie.getFacts());
@@ -90,66 +90,66 @@ public class RuleInferenceEngineUnitTest {
 
     private RuleInferenceEngine getInferenceEngine()
     {
-        RuleInferenceEngine rie=new RuleInferenceEngine();
+        RuleInferenceEngine rie=new KieRuleInferenceEngine();
 
         Rule rule=new Rule("Bicycle");
-        rule.addAntecedent(new IsClause("vehicleType", "cycle"));
-        rule.addAntecedent(new IsClause("num_wheels", "2"));
-        rule.addAntecedent(new IsClause("motor", "no"));
-        rule.setConsequent(new IsClause("vehicle", "Bicycle"));
+        rule.addAntecedent(new EqualsClause("vehicleType", "cycle"));
+        rule.addAntecedent(new EqualsClause("num_wheels", "2"));
+        rule.addAntecedent(new EqualsClause("motor", "no"));
+        rule.setConsequent(new EqualsClause("vehicle", "Bicycle"));
         rie.addRule(rule);
 
         rule=new Rule("Tricycle");
-        rule.addAntecedent(new IsClause("vehicleType", "cycle"));
-        rule.addAntecedent(new IsClause("num_wheels", "3"));
-        rule.addAntecedent(new IsClause("motor", "no"));
-        rule.setConsequent(new IsClause("vehicle", "Tricycle"));
+        rule.addAntecedent(new EqualsClause("vehicleType", "cycle"));
+        rule.addAntecedent(new EqualsClause("num_wheels", "3"));
+        rule.addAntecedent(new EqualsClause("motor", "no"));
+        rule.setConsequent(new EqualsClause("vehicle", "Tricycle"));
         rie.addRule(rule);
 
         rule=new Rule("Motorcycle");
-        rule.addAntecedent(new IsClause("vehicleType", "cycle"));
-        rule.addAntecedent(new IsClause("num_wheels", "2"));
-        rule.addAntecedent(new IsClause("motor", "yes"));
-        rule.setConsequent(new IsClause("vehicle", "Motorcycle"));
+        rule.addAntecedent(new EqualsClause("vehicleType", "cycle"));
+        rule.addAntecedent(new EqualsClause("num_wheels", "2"));
+        rule.addAntecedent(new EqualsClause("motor", "yes"));
+        rule.setConsequent(new EqualsClause("vehicle", "Motorcycle"));
         rie.addRule(rule);
 
         rule=new Rule("SportsCar");
-        rule.addAntecedent(new IsClause("vehicleType", "automobile"));
-        rule.addAntecedent(new IsClause("size", "medium"));
-        rule.addAntecedent(new IsClause("num_doors", "2"));
-        rule.setConsequent(new IsClause("vehicle", "Sports_Car"));
+        rule.addAntecedent(new EqualsClause("vehicleType", "automobile"));
+        rule.addAntecedent(new EqualsClause("size", "medium"));
+        rule.addAntecedent(new EqualsClause("num_doors", "2"));
+        rule.setConsequent(new EqualsClause("vehicle", "Sports_Car"));
         rie.addRule(rule);
 
         rule=new Rule("Sedan");
-        rule.addAntecedent(new IsClause("vehicleType", "automobile"));
-        rule.addAntecedent(new IsClause("size", "medium"));
-        rule.addAntecedent(new IsClause("num_doors", "4"));
-        rule.setConsequent(new IsClause("vehicle", "Sedan"));
+        rule.addAntecedent(new EqualsClause("vehicleType", "automobile"));
+        rule.addAntecedent(new EqualsClause("size", "medium"));
+        rule.addAntecedent(new EqualsClause("num_doors", "4"));
+        rule.setConsequent(new EqualsClause("vehicle", "Sedan"));
         rie.addRule(rule);
 
         rule=new Rule("MiniVan");
-        rule.addAntecedent(new IsClause("vehicleType", "automobile"));
-        rule.addAntecedent(new IsClause("size", "medium"));
-        rule.addAntecedent(new IsClause("num_doors", "3"));
-        rule.setConsequent(new IsClause("vehicle", "MiniVan"));
+        rule.addAntecedent(new EqualsClause("vehicleType", "automobile"));
+        rule.addAntecedent(new EqualsClause("size", "medium"));
+        rule.addAntecedent(new EqualsClause("num_doors", "3"));
+        rule.setConsequent(new EqualsClause("vehicle", "MiniVan"));
         rie.addRule(rule);
 
         rule=new Rule("SUV");
-        rule.addAntecedent(new IsClause("vehicleType", "automobile"));
-        rule.addAntecedent(new IsClause("size", "large"));
-        rule.addAntecedent(new IsClause("num_doors", "4"));
-        rule.setConsequent(new IsClause("vehicle", "SUV"));
+        rule.addAntecedent(new EqualsClause("vehicleType", "automobile"));
+        rule.addAntecedent(new EqualsClause("size", "large"));
+        rule.addAntecedent(new EqualsClause("num_doors", "4"));
+        rule.setConsequent(new EqualsClause("vehicle", "SUV"));
         rie.addRule(rule);
 
         rule=new Rule("Cycle");
         rule.addAntecedent(new LessClause("num_wheels", "4"));
-        rule.setConsequent(new IsClause("vehicleType", "cycle"));
+        rule.setConsequent(new EqualsClause("vehicleType", "cycle"));
         rie.addRule(rule);
 
         rule=new Rule("Automobile");
-        rule.addAntecedent(new IsClause("num_wheels", "4"));
-        rule.addAntecedent(new IsClause("motor", "yes"));
-        rule.setConsequent(new IsClause("vehicleType", "automobile"));
+        rule.addAntecedent(new EqualsClause("num_wheels", "4"));
+        rule.addAntecedent(new EqualsClause("motor", "yes"));
+        rule.setConsequent(new EqualsClause("vehicleType", "automobile"));
         rie.addRule(rule);
 
         return rie;
