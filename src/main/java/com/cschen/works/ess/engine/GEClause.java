@@ -43,7 +43,7 @@ public class GEClause extends Clause {
                 else return IntersectionType.Unknown;
             } else if(rhs instanceof EqualsClause){
                 if(b >= a) return IntersectionType.Inclusive;
-                else return IntersectionType.Unknown;
+                else return IntersectionType.MutuallyExclusive;
             } else if(rhs instanceof GEClause){
                 if(b >= a) return IntersectionType.Inclusive;
                 else return IntersectionType.Unknown;
