@@ -56,4 +56,9 @@ public class WorkingMemory implements Serializable {
     public List<Clause> getFacts() {
         return facts;
     }
+
+    public void given(String variable, String value) {
+        addFact(new EqualsClause(variable, value));
+    }
+
 }
