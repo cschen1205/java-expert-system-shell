@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 /**
- * Created by memeanalytics on 29/4/17.
+ * Created by cschen on 29/4/17.
  */
 public class LEClauseUnitTest {
 

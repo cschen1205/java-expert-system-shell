@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import javax.script.ScriptException;
 
 /**
- * Created by memeanalytics on 28/4/17.
+ * Created by cschen on 28/4/17.
  */
 public class JSRuleInferenceEngineUnitTest {
     private JSRuleInferenceEngine engine;

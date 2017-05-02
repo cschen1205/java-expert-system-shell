@@ -7,38 +7,59 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
 /**
- * Created by memeanalytics on 1/5/17.
+ * Created by cschen on 1/5/17.
  */
 public class RuleBuilderUnitTest {
 
     private RuleBuilder builder;
     private KieRuleInferenceEngine ruleInferenceEngine;
-    private Rule rule;
+    private Rule rule1;
+    private Rule rule2;
 
     @BeforeMethod
     public void setUp(){
         ruleInferenceEngine = Mockito.mock(KieRuleInferenceEngine.class);
         builder = new RuleBuilder(ruleInferenceEngine);
 
-        rule = builder.ifGE("temperature", "22")
+        rule1 = builder.ifGE("temperature", "22")
                 .andLE("temperature", "27")
                 .thenEquals("weather", "nice")
+                .build();
+
+        rule2 = builder.ifGreater("temperature", "22")
+                .andLess("temperature", "27")
                 .build();
     }
 
     @Test
-    public void test_fire() {
+    public void test_rule1_fire() {
         WorkingMemory workingMemory = new WorkingMemory();
-        workingMemory.given("temperature", "24");
+        workingMemory.given("temperature", "22");
 
-        assertTrue(rule.isTriggered(workingMemory));
+        assertTrue(rule1.isTriggered(workingMemory));
     }
 
     @Test
-    public void test_not_fire() {
+    public void test_rule1_not_fire() {
         WorkingMemory workingMemory = new WorkingMemory();
         workingMemory.given("temperature", "34");
 
-        assertFalse(rule.isTriggered(workingMemory));
+        assertFalse(rule1.isTriggered(workingMemory));
+    }
+
+    @Test
+    public void test_rule2_fire() {
+        WorkingMemory workingMemory = new WorkingMemory();
+        workingMemory.given("temperature", "23");
+
+        assertTrue(rule2.isTriggered(workingMemory));
+    }
+
+    @Test
+    public void test_rule2_not_fire() {
+        WorkingMemory workingMemory = new WorkingMemory();
+        workingMemory.given("temperature", "22");
+
+        assertFalse(rule2.isTriggered(workingMemory));
     }
 }

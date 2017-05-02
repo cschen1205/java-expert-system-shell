@@ -8,7 +8,7 @@ import java.util.Vector;
 import static org.testng.Assert.*;
 
 /**
- * Created by memeanalytics on 27/4/17.
+ * Created by cschen on 27/4/17.
  */
 public class RuleInferenceEngineUnitTest {
 

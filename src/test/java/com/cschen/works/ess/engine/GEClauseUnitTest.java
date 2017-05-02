@@ -7,7 +7,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.testng.Assert.*;
 
 /**
- * Created by memeanalytics on 29/4/17.
+ * Created by cschen on 29/4/17.
  */
 public class GEClauseUnitTest {
 

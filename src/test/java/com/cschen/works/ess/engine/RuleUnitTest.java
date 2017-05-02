@@ -7,7 +7,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.testng.Assert.*;
 
 /**
- * Created by memeanalytics on 1/5/17.
+ * Created by cschen on 1/5/17.
  */
 public class RuleUnitTest {
 
