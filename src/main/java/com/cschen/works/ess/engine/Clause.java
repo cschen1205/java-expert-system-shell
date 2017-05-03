@@ -1,13 +1,14 @@
 package com.cschen.works.ess.engine;
 
 import com.cschen.works.ess.enums.IntersectionType;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.Serializable;
 
 /**
  * Created by root on 6/6/16.
  */
-public abstract  class Clause implements Serializable {
+public  class Clause implements Serializable {
     protected String variable = "";
     protected String value = "";
     protected String condition = "=";
@@ -59,7 +60,9 @@ public abstract  class Clause implements Serializable {
         return intersect(rhs);
     }
 
-    protected abstract IntersectionType intersect(Clause rhs);
+    protected IntersectionType intersect(Clause rhs) {
+        throw new NotImplementedException();
+    }
 
     @Override
     public String toString(){
