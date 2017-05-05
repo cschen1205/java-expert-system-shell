@@ -1,6 +1,7 @@
 package com.cschen.works.ess.engine;
 
 import com.cschen.works.ess.enums.IntersectionType;
+import org.assertj.core.api.AssertionsForInterfaceTypes;
 import org.testng.annotations.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -23,5 +24,8 @@ public class NegationClauseUnitTest {
 
         assertThat(new NegationClause(greaterThan).intersect(lessThanOrEqualTo)).isEqualTo(IntersectionType.Inclusive);
         assertThat(new NegationClause(lessThan).intersect(greaterThanOrEqualTo)).isEqualTo(IntersectionType.Inclusive);
+
+        AssertionsForInterfaceTypes.assertThat(new NegationClause(lessThan).intersect(new Clause("Hello", "World"))).isEqualTo(IntersectionType.Unknown);
+        AssertionsForInterfaceTypes.assertThat(new NegationClause(lessThan).intersect(new Clause("number", "2"))).isEqualTo(IntersectionType.Unknown);
     }
 }

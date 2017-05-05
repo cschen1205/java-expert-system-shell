@@ -28,6 +28,9 @@ public class LessClauseUnitTest {
         assertThat(clause.intersect(new LessClause("temperature", "9"))).isEqualTo(IntersectionType.Inclusive);
         assertThat(clause.intersect(new GreaterClause("temperature", "10"))).isEqualTo(IntersectionType.MutuallyExclusive);
         assertThat(clause.intersect(new GreaterClause("temperature", "9"))).isEqualTo(IntersectionType.Unknown);
+
+        assertThat(clause.intersect(new Clause("Hello", "World"))).isEqualTo(IntersectionType.Unknown);
+        assertThat(clause.intersect(new Clause("number", "2"))).isEqualTo(IntersectionType.Unknown);
     }
 
 }

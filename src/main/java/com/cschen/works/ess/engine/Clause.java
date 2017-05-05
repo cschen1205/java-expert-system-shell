@@ -6,7 +6,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.io.Serializable;
 
 /**
- * Created by root on 6/6/16.
+ * Created by cschen on 6/6/16.
  */
 public  class Clause implements Serializable {
     protected String variable = "";

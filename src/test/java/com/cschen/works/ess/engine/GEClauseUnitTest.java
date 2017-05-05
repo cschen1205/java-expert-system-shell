@@ -25,10 +25,17 @@ public class GEClauseUnitTest {
         assertThat(clause.intersect(new EqualsClause("temperature", "10"))).isEqualTo(IntersectionType.Inclusive);
         assertThat(clause.intersect(new EqualsClause("temperature", "11"))).isEqualTo(IntersectionType.Inclusive);
         assertThat(clause.intersect(new EqualsClause("temperature", "9.9"))).isEqualTo(IntersectionType.MutuallyExclusive);
+        assertThat(clause.intersect(new GEClause("temperature", "11"))).isEqualTo(IntersectionType.Inclusive);
+        assertThat(clause.intersect(new GEClause("temperature", "9"))).isEqualTo(IntersectionType.Unknown);
         assertThat(clause.intersect(new GreaterClause("temperature", "9"))).isEqualTo(IntersectionType.Unknown);
         assertThat(clause.intersect(new GreaterClause("temperature", "11"))).isEqualTo(IntersectionType.Inclusive);
         assertThat(clause.intersect(new LessClause("temperature", "10"))).isEqualTo(IntersectionType.MutuallyExclusive);
         assertThat(clause.intersect(new LessClause("temperature", "11"))).isEqualTo(IntersectionType.Unknown);
+        assertThat(clause.intersect(new LEClause("temperature", "9"))).isEqualTo(IntersectionType.MutuallyExclusive);
+        assertThat(clause.intersect(new LEClause("temperature", "11"))).isEqualTo(IntersectionType.Unknown);
+
+        assertThat(clause.intersect(new Clause("Hello", "World"))).isEqualTo(IntersectionType.Unknown);
+        assertThat(clause.intersect(new Clause("number", "2"))).isEqualTo(IntersectionType.Unknown);
     }
 
 }

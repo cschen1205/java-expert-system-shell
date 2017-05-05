@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by root on 6/6/16.
+ * Created by cschen on 6/6/16.
  */
 public class KieRuleInferenceEngine implements RuleInferenceEngine {
     protected List<Rule> rules = new ArrayList<>();

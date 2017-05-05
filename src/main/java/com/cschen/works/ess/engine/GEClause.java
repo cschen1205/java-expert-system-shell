@@ -3,7 +3,7 @@ package com.cschen.works.ess.engine;
 import com.cschen.works.ess.enums.IntersectionType;
 
 /**
- * Created by root on 6/6/16.
+ * Created by cschen on 6/6/16.
  */
 public class GEClause extends Clause {
 
