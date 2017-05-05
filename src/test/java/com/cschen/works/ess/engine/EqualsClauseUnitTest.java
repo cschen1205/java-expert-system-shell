@@ -54,6 +54,10 @@ public class EqualsClauseUnitTest {
 
         assertThat(clause.intersect(matchHello)).isEqualTo(IntersectionType.Inclusive);
         assertThat(clause.intersect(matchHi)).isEqualTo(IntersectionType.MutuallyExclusive);
+
+        assertThat(clause.intersect(new Clause("Hello", "World"))).isEqualTo(IntersectionType.Unknown);
+        assertThat(clause.intersect(new Clause("number", "2"))).isEqualTo(IntersectionType.Unknown);
     }
+
 
 }
