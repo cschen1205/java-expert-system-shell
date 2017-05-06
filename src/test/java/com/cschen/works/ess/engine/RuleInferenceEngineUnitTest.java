@@ -1,5 +1,6 @@
 package com.cschen.works.ess.engine;
 
+import com.cschen.works.ess.enums.ConditionType;
 import org.testng.annotations.Test;
 
 import java.util.Scanner;
@@ -86,6 +87,16 @@ public class RuleInferenceEngineUnitTest {
         System.out.println("after inference");
         System.out.println(rie.getFacts());
         System.out.println();
+    }
+
+    @Test
+    public void testAddFacts(){
+        RuleInferenceEngine engine = new KieRuleInferenceEngine();
+        engine.addFact("table.length.cm", ConditionType.Greater, "15");
+        engine.addFact("table.width.cm", ConditionType.Less, "15");
+        engine.addFact("table.height.cm", ConditionType.Equals, "115");
+        engine.addFact("door.length.cm", ConditionType.GreaterEquals, "105");
+        engine.addFact("door.width.cm", ConditionType.LessEquals, "85");
     }
 
     private RuleInferenceEngine getInferenceEngine()
