@@ -6,7 +6,52 @@
 
     <groupId>com.cschen.works</groupId>
     <artifactId>java-expert-system-shell</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1</version>
+
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://github.com/cschen1205/java-expert-system-shell/LICENSE</url>
+            <comments>MIT License</comments>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <email>xs0040@gmail.com</email>
+            <id>cschen1205</id>
+            <name>Xianshun Chen</name>
+            <url>https://github.com/cschen1205</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/cschen1205/java-expert-system-shell</url>
+        <connection>scm:git:git://github.com/cschen1205/java-expert-system-shell.git</connection>
+        <developerConnection>scm:git:git@github.com:cschen1205/java-expert-system-shell.git</developerConnection>
+    </scm>
+
+    <issueManagement>
+        <url>https://github.com/cschen1205/java-expert-system-shell/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+
+    <name>Expert System Shell</name>
+    <description>Expert system shell implemented in Java</description>
+    <url>https://github.com/cschen1205/java-expert-system-shell</url>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
 
 
     <repositories>
@@ -91,7 +136,7 @@
         </profile>
 
         <profile>
-            <id>deployment</id>
+            <id>release</id>
             <properties>
                 <current.scope>compile</current.scope>
             </properties>
@@ -103,12 +148,70 @@
                         <version>${surefire.version}</version>
                         <configuration>
                             <skipTests>true</skipTests>
-                            <argLine>-Dfile.encoding=UTF-8</argLine>
+                        </configuration>
+                    </plugin>
+
+                    <!-- for generating the source jar -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- for generating the javadocs -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- GPG signed component -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
                 </plugins>
             </build>
         </profile>
+
 
         <profile>
             <id>unit-test</id>
