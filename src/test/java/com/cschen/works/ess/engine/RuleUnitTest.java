@@ -1,5 +1,7 @@
 package com.cschen.works.ess.engine;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -10,6 +12,8 @@ import static org.testng.Assert.*;
  * Created by cschen on 1/5/17.
  */
 public class RuleUnitTest {
+
+    private static final Logger logger = LoggerFactory.getLogger(RuleUnitTest.class);
 
     private Rule rule;
 
@@ -42,6 +46,9 @@ public class RuleUnitTest {
         workingMemory.addFact(new EqualsClause("temperature", "23"));
 
         assertFalse(rule.isTriggered(workingMemory));
+
+        logger.info("rule: {}", rule.getName());
+        logger.info("{}", rule);
 
     }
 }
