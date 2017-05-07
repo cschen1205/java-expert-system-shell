@@ -29,8 +29,14 @@ public class LEClauseUnitTest {
         assertThat(clause.intersect(new GreaterClause("temperature", "10"))).isEqualTo(IntersectionType.MutuallyExclusive);
         assertThat(clause.intersect(new GreaterClause("temperature", "9"))).isEqualTo(IntersectionType.Unknown);
 
+        assertThat(clause.intersect(new GEClause("temperature", "11"))).isEqualTo(IntersectionType.MutuallyExclusive);
+        assertThat(clause.intersect(new GEClause("temperature", "9"))).isEqualTo(IntersectionType.Unknown);
+
         assertThat(clause.intersect(new Clause("Hello", "World"))).isEqualTo(IntersectionType.Unknown);
         assertThat(clause.intersect(new Clause("number", "2"))).isEqualTo(IntersectionType.Unknown);
+
+        assertThat(clause.intersect(new NegationClause(new LEClause("temperature", "10")))).isEqualTo(IntersectionType.MutuallyExclusive);
+
     }
 
 }
