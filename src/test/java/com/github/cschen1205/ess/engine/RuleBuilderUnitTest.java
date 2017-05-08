@@ -62,4 +62,17 @@ public class RuleBuilderUnitTest {
 
         assertFalse(rule2.isTriggered(workingMemory));
     }
+
+    @Test
+    public void test_all_other_cases(){
+        new RuleBuilder(ruleInferenceEngine).ifNotEquals("x", "2.0")
+                .andNotEquals("x", "3.0")
+                .andGreater("x", "3.0")
+                .andLess("x", "4.0")
+                .thenGreater("x", "3.0");
+        new RuleBuilder(ruleInferenceEngine).ifLE("x", "2.0")
+                .thenLE("x", "3.0");
+        new RuleBuilder(ruleInferenceEngine).ifGE("x", "3.0")
+                .thenGE("x", "3.0");
+    }
 }
