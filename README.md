@@ -13,6 +13,18 @@ Note that this expert system shell do not require external dependencies for its 
 - Backward Rule Chaining with Prompt
 - Support rules file written in Javascript
 
+# Install
+
+Add the following dependency into your POM file:
+
+```xml
+<dependency>
+  <groupId>com.github.cschen1205</groupId>
+  <artifactId>java-expert-system-shell</artifactId>
+  <version>1.0.1</version>
+</dependency>
+```
+
 # Usage
 
 ## Add rules and initialize the rule engine
