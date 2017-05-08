@@ -70,6 +70,14 @@ public class RuleBuilderUnitTest {
                 .andGreater("x", "3.0")
                 .andLess("x", "4.0")
                 .thenGreater("x", "3.0");
+        new RuleBuilder(ruleInferenceEngine).ifLess("x", "2.0")
+                .thenLess("y", "4.0");
+        new RuleBuilder(ruleInferenceEngine).ifMatch("x", "^s")
+                .andMatch("y", "^s")
+                .thenMatch("y", "^s");
+        new RuleBuilder(ruleInferenceEngine).ifNotMatch("x", "^s")
+                .andNotMatch("y", "^s")
+                .thenNotMatch("y", "^s");
         new RuleBuilder(ruleInferenceEngine).ifLE("x", "2.0")
                 .thenLE("x", "3.0");
         new RuleBuilder(ruleInferenceEngine).ifGE("x", "3.0")
