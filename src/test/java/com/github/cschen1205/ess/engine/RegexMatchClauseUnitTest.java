@@ -29,6 +29,8 @@ public class RegexMatchClauseUnitTest {
     public void test_intersect() {
         assertThat(clause.intersect(new EqualsClause("url", "http://www.google.com"))).isEqualTo(IntersectionType.Inclusive);
         assertThat(clause.intersect(new EqualsClause("url", "google-com"))).isEqualTo(IntersectionType.MutuallyExclusive);
+        assertThat(clause.intersect(new NegationClause(new EqualsClause("url", "http://www.google.com")))).isEqualTo(IntersectionType.MutuallyExclusive);
+        assertThat(clause.intersect(clause)).isEqualTo(IntersectionType.Inclusive);
     }
 
 }
