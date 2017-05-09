@@ -1,14 +1,17 @@
 package com.github.cschen1205.ess.js;
 
+import com.github.cschen1205.ess.engine.Clause;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import javax.script.ScriptException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by cschen on 28/4/17.
@@ -20,6 +23,11 @@ public class JSRuleInferenceEngineUnitTest {
     public void setup() throws ScriptException {
         engine = new JSRuleInferenceEngine();
 
+    }
+
+    @Test
+    public void testLoadFileWithException() throws ScriptException {
+        engine.loadFile("/tmp/rules-new.js");
     }
 
     @Test
@@ -50,6 +58,9 @@ public class JSRuleInferenceEngineUnitTest {
         System.out.println("after inference");
         System.out.println(engine.getKnowledgeBase());
         System.out.println();
+
+        List<Clause> facts = engine.getFacts("vehicle");
+        facts.forEach(f -> System.out.println(f));
 
     }
 

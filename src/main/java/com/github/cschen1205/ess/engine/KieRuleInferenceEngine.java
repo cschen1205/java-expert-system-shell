@@ -153,7 +153,7 @@ public class KieRuleInferenceEngine implements RuleInferenceEngine {
     @Override public List<Clause> getFactsAboutVariable(String variable){
         List<Clause> facts = new ArrayList<>();
         for(Clause c : memory.getFacts()){
-            if(c.getVariable().contains(variable)){
+            if(c.getVariable().equalsIgnoreCase(variable)){
                 facts.add(c);
             }
         }
